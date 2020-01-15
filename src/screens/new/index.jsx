@@ -1,12 +1,16 @@
 import React,{useState,useMemo} from 'react'
 import api from '../../services/api'
 import cameraImg from '../../assets/camera.png'
+import LoadingImg from '../../assets/loading.gif'
+
 import './style.css'
 export default function New(props){
 	const [thumbnail,setThumbnail]=useState(null)
 	const [company,setCompany]=useState('')
 	const [techs,setTechs]=useState('')
 	const [price,setPrice]=useState('')
+	const [loading,setLoading] = useState(false)
+
 	const preview = useMemo(()=>{
 		//console.log(URL.createObjectURL(thumbnail));
 		return thumbnail?URL.createObjectURL(thumbnail):null
@@ -21,9 +25,11 @@ export default function New(props){
 		data.append('techs',techs)
 		data.append('price',price)
 		try{
+			setLoading(true)
 			const response = await api.post('/spots/store',data,{
 				headers:{user_id}
 			})
+			setLoading(false)
 			console.log(response);
 			props.history.push('/dashBoard')
 		}
@@ -66,7 +72,15 @@ export default function New(props){
 				value={price}
 				onChange={e => setPrice(e.target.value)}
 			/>
-			<button className='btn'>Cadastrar</button>
+			{loading?
+				<button className='btn' disabled type='button'>
+					<img src={LoadingImg} alt="loading" width="40px"/>
+				</button>
+				:
+				<button className='btn' type='submit'>
+					Cadastrar
+				</button>
+				}
 		</form>
 	)
 }

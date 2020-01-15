@@ -1,10 +1,12 @@
 import React,{useEffect,useState,Fragment} from 'react'
 import {Link} from 'react-router-dom'
+import LoadingImg from '../../assets/loading.gif'
 import api from '../../services/api'
 import './style.css'
 
 export default function DashBoard(){
 	const [spots,setSpots] = useState([])
+	const [loading,setLoading] = useState(false)
 	useEffect(()=>{
 		async function loadSpots(){
 			const user_id = localStorage.getItem('user')
@@ -14,7 +16,9 @@ export default function DashBoard(){
 				}
 			}
 			try{
+				setLoading(true)
 				const response = await api.get('/dashboard/show',request)
+				setLoading(false)
 				console.log('spots');
 				console.log(response);
 				setSpots(response.data)
@@ -30,6 +34,9 @@ export default function DashBoard(){
 
 	return (
 		<Fragment>
+			{loading?
+			<img src={LoadingImg} alt="loading"/>
+			:
 			<ul className="spot-list">
 				{spots.map(spot=>
 					<li key={spot._id}>
@@ -39,6 +46,7 @@ export default function DashBoard(){
 					</li>
 				)}
 			</ul>
+			}
 			<Link to='/new'>
 				<button className='btn'>Cadastrar novo sport</button>
 			</Link>
