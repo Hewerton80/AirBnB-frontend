@@ -1,10 +1,15 @@
 import React,{useState,useMemo} from 'react'
+import {useHistory} from 'react-router-dom'
 import api from '../../services/api'
 import cameraImg from '../../assets/camera.png'
 import LoadingImg from '../../assets/loading.gif'
 
 import './style.css'
 export default function New(props){
+	const history = useHistory()
+	if(!sessionStorage.getItem("user")){
+		history.push('/')
+	}
 	const [thumbnail,setThumbnail]=useState(null)
 	const [company,setCompany]=useState('')
 	const [techs,setTechs]=useState('')

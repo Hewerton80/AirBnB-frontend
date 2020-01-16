@@ -1,10 +1,14 @@
 import React,{useEffect,useState,Fragment} from 'react'
-import {Link} from 'react-router-dom'
+import {Link,useHistory} from 'react-router-dom'
 import LoadingImg from '../../assets/loading.gif'
 import api from '../../services/api'
 import './style.css'
 
-export default function DashBoard(){
+export default function DashBoard(props){
+	const history = useHistory()
+	if(!sessionStorage.getItem("user")){
+		history.push('/')
+	}
 	const [spots,setSpots] = useState([])
 	const [loading,setLoading] = useState(false)
 	useEffect(()=>{
