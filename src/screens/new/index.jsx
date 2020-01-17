@@ -9,7 +9,6 @@ export default function New(props){
 	const history = useHistory()
 	if(!sessionStorage.getItem("user")){
 		history.push('/')
-		return null
 	}
 	const [thumbnail,setThumbnail]=useState(null)
 	const [company,setCompany]=useState('')

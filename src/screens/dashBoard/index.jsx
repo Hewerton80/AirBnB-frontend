@@ -8,7 +8,6 @@ export default function DashBoard(props){
 	const history = useHistory()
 	if(!sessionStorage.getItem("user")){
 		history.push('/')
-		return null
 	}
 	const [spots,setSpots] = useState([])
 	const [loading,setLoading] = useState(false)
