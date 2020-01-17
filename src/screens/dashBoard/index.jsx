@@ -6,7 +6,7 @@ import './style.css'
 
 export default function DashBoard(props){
 	const history = useHistory()
-	if(!sessionStorage.getItem("user")){
+	if(!localStorage.getItem("user")){
 		history.push('/')
 	}
 	const [spots,setSpots] = useState([])

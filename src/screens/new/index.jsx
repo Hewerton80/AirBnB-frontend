@@ -7,7 +7,7 @@ import LoadingImg from '../../assets/loading.gif'
 import './style.css'
 export default function New(props){
 	const history = useHistory()
-	if(!sessionStorage.getItem("user")){
+	if(!localStorage.getItem("user")){
 		history.push('/')
 	}
 	const [thumbnail,setThumbnail]=useState(null)
